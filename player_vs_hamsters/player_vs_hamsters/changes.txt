@@ -1,0 +1,25 @@
+1) Бага с выходом за границы поля(должно быть position[0):
+        if destination == "d":
+            if self.player.position[0] == len(self.map.split("\n")[0]) - 1:
+
+2) Бага с появлением игрока на хомяке:
+		1)Скопировал функцию get_clear_position() у хомяка и добавил ее плееру
+		2)Вызвал ее у плеера после расстановки хомяков:
+		    def __init__(self):
+				self.player = Player()
+				self.hamsters = []
+				for i in range(hamsters_count):
+					self.hamsters.append(Hamster(i + 1, self.get_full_map()))
+				self.player.position = self.player.get_clear_position(self.get_full_map())
+	
+3) Бага с концовкой:
+	1)Сделал  hamsters_count членом класса Game
+	2)В методе on_move():
+						killed = self.hamsters[int(hamster) - 1].on_shot()
+						if killed:
+							self.hamsters_count -= 1
+	3)В методе start():
+					if self.hamsters_count == 0:
+						print(self.happy_message)
+						return True
+4) Фича: Сделал вывод здоровья хомяка
